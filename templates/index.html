@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <section>
+    {% if 'user_id' in session%}
+    <small><a style="color: white" href="/shows/most-rated">Top 15 rated films</a></small>
+    {% endif %}
+        <h1 class="title text-center">Welcome page</h1>
+        <div class="card">
+            <h2>Welcome TV show lovers!</h2>
+            <p>This great site is happy to bring you your favourite TV show's <i>details</i>.</p>
+            <p></p>
+            <p>Okay, actually this is a designed dumb page without any logic.</p>
+            <p>You can find a navigational element, the so called "breadcrumb" above the page's title. Use it for
+                in-depth
+                navigation.
+            </p>
+        </div>
+        <div class="card">
+            <ul>
+                {% for show in shows %}
+                    <li>
+                        <a href="{{ '/tv-show/' + (show['id'] | string) }}">{{ show['title'] }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,95 @@
+
+
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <section>
+        <nav class="breadcrumb">
+            <span>
+                <a href="/">all shows</a> >
+                <a href="">{{ show[1] }}</a>
+            </span>
+        </nav>
+
+        <div class="card detailed-view">
+            {% if session %}
+
+
+                <button type="button" class="addCommentBtn">Add comment</button>
+                <br>
+                <div class="hiden">
+
+                    <textarea name="textarea" id="{{ id }}" cols="30" rows="10" class="textarea"></textarea><br>
+                    <button type="button" class="saveBtn">Save</button>
+                </div>
+            {% endif %}
+
+            <div class="row">
+                <a href="{{ show[5] }}" target="_blank"><img src={{ show[6] }} alt="{{ show[1]+ ' ' }}poster'"
+                                                             class="poster col col-third"></a>
+                <div class="col col-twothird">
+                    <h2>{{ show[1] }} ({{ show[2].year }})</h2>
+                    <p class="small grayed">{{ show[4] }}min <span class="separator">|</span>
+                        {% for genre in genres %}
+                            {{ genre.name }},
+                        {% endfor %}
+                        <span class="separator">|</span> released
+                        on {{ show[2].day }}-{{ show[2].month }}-{{ show[2].year }}</p>
+
+                    <p>{{ show[3] }}</p>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card showComment"></div>
+
+        </div>
+        <div>
+            <p><b>Director:</b>&nbsp;<a href="#">Tim Miller</a></p>
+            <p><b>Writers:</b>&nbsp;<a href="#">Rhett Reese</a>, <a href="#">Paul Wernick</a></p>
+            <p><b>Stars:</b>&nbsp;<a href="#">Ryan Reynolds</a>, <a href="#">Morena Baccarin</a>, <a href="#">T.J.
+                Miller</a></p>
+        </div>
+
+
+        <div class="card">
+            Seasons table:
+            <table>
+                <thead>
+                <tr>
+                    {#                    <th>#</th>#}
+                    <th>Season</th>
+                    <th>Overview</th>
+                    <th>No. of episodes</th>
+
+
+                    {#                    <th class="action-column">e</th>#}
+                </tr>
+                </thead>
+                <tbody>
+                {% for season in episode_data %}
+                    <tr>
+                        {#                    <td>{{ season.no_of_seasons }}</td>#}
+                        <td>{{ season.seasons }}</td>
+                        <td>{{ season.overview }}</td>
+
+
+                        <td>{{ season.ep_no }}</td>
+
+
+                        {#                    <td class="action-column">#}
+                        {#                        <button type="button" class="icon-button"><i class="fa fa-edit fa-fw"></i></button>#}
+                        {#                        <button type="button" class="icon-button"><i class="fa fa-trash fa-fw"></i></button>#}
+                        {#                    </td>#}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <script src="/static/js/addComment.js"></script>
+{% endblock %}

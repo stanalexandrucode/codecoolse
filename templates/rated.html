@@ -1,0 +1,100 @@
+
+
+{% extends 'layout.html' %}
+
+{% block content %}
+    <section>
+        <nav class="breadcrumb">
+            <span>
+                <a href="/">all shows</a> >
+                <a href="/shows">top rated shows</a> >
+                <a href="/shows/most-rated">most rated</a>
+            </span>
+        </nav>
+
+        <div class="card">
+            Top 15 most rated shows:
+            <table id="myTable">
+                <thead>
+                <tr>
+                    <th><a href="/shows/most-rated/{{ 'title' }}">title</a></th>
+                    <th><a href="/shows/most-rated/{{ 'shows.year' }}">release year</a></th>
+                    <th><a href="/shows/most-rated/{{ 'runtime' }}">runtime</a></th>
+                    <th><a href="/shows/most-rated/{{ 'rating' }}">rating</a></th>
+
+                    {#                    <th class="titlu">Title</th>#}
+                    {#                    <th class="an"> Year</th>#}
+                    {#                    <th class ='runTime'> Runtime</th>#}
+                    {#                    <th class="ratingu"> Rating</th>#}
+                    <th>Genre</th>
+                    <th class="action-column">Trailer</th>
+                    <th class="action-column">Homepage</th>
+
+
+
+                    {#                    <th class="action-column">e</th>#}
+                </tr>
+                </thead>
+                <tbody class="tbodyContainer">
+                {% for show in data %}
+                    <tr>
+                        <td><a href="{{ url_for("show_by_id",id = show.id) }}">{{ show.title }}</a></td>
+                        <td>{{ show.year.year }}</td>
+                        {% if show.runtime // 60 != 0  and show.runtime % 60 !=0 %}
+                            <td>{{ show.runtime //60 }}h: {{ show.runtime %60 }} min</td>
+                        {% else %}
+                            <td>{{ show.runtime }} min</td>
+                        {% endif %}
+                        <td>{{ show.rating | round(1,'floor') }}</td>
+                        <td>{{ show.genres }}</td>
+                        {% if show.trailer != None %}
+                            <td><a href="{{ show.trailer }}" target="_blank"> trailer</a></td>
+                        {% else %}
+                            <td>No url</td>
+                        {% endif %}
+                        {% if show.homepage != None %}
+                            <td><a href="{{ show.homepage }}" target="_blank">Visit homepage</a></td>
+                        {% else %}
+                            <td>No url</td>
+                        {% endif %}
+
+
+
+
+
+
+                        {#                                            <td class="action-column">#}
+                        {#                                                <button type="button" class="icon-button"><i class="fa fa-edit fa-fw"></i></button>#}
+                        {#                                                <button type="button" class="icon-button"><i class="fa fa-trash fa-fw"></i></button>#}
+                        {#                                            </td>#}
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+
+
+        <div class="text-center">
+            <div class="inner">
+                <a href="{{ url_for('previous_page') }}">
+                    << </a>
+                {{ active_page }}
+                {#                {% if active_page >= 2 %}#}
+                {#                    <a href="#">{{ active_page - 2 }}</a> <a href="#">{{ active_page - 1 }}</a>#}
+                {#                    <a style="font-size: large;color: black" href="#">{{ active_page }}</a> <a#}
+                {#                        href="#">{{ active_page + 1 }}</a>#}
+                {#                    <a href="#">{{ active_page + 2 }}</a>#}
+                {#                {% elif active_page >= 0 %}#}
+                {#                    <a style="font-size: large;color: black" href="#">{{ active_page }}</a> <a#}
+                {#                        href="#">{{ active_page + 1 }}</a>#}
+                {#                    <a href="#">{{ active_page + 2 }}</a>#}
+                {#                {% endif %}#}
+                <a href="{{ url_for('next_page') }}"> >> </a>
+            </div>
+        </div>
+
+
+    </section>
+{% endblock %}
